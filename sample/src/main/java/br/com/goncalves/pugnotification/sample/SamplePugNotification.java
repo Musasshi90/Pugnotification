@@ -26,7 +26,7 @@ import br.com.goncalves.pugnotification.notification.PugNotification;
 
 public class SamplePugNotification extends AppCompatActivity implements ImageLoader {
     private EditText mEdtTitle, mEdtMessage, mEdtBigText, mEdtUrl;
-    private Button mBtnNotifySimple, mBtnNotifyCustom;
+    private Button mBtnNotifySimple, mBtnNotifyCustom, mBtnNotifyFullScreen;
     private Context mContext;
     // Keep a strong reference to keep it from being garbage collected inside into method
     private Target viewTarget;
@@ -70,6 +70,7 @@ public class SamplePugNotification extends AppCompatActivity implements ImageLoa
         this.mEdtUrl = (EditText) findViewById(R.id.edt_url);
         this.mBtnNotifySimple = (Button) findViewById(R.id.btn_notify_simple);
         this.mBtnNotifyCustom = (Button) findViewById(R.id.btn_notify_custom);
+        this.mBtnNotifyFullScreen = findViewById(R.id.btn_notify_full_screen);
         this.mSpnType = (Spinner) findViewById(R.id.spn_notification_type);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.pugnotification_notification_types, android.R.layout.simple_spinner_item);
@@ -120,7 +121,7 @@ public class SamplePugNotification extends AppCompatActivity implements ImageLoa
                     switch (mPosSelected) {
                         case 0:
                             mLoad.simple()
-                                 .build();
+                                    .build();
                             break;
                         case 1:
                             if (bigtext.length() > 0) {
@@ -175,6 +176,48 @@ public class SamplePugNotification extends AppCompatActivity implements ImageLoa
                         .background(url)
                         .setPlaceholder(R.drawable.pugnotification_ic_placeholder)
                         .build();
+            }
+        });
+        mBtnNotifyFullScreen.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                String title = mEdtTitle.getText().toString();
+                String message = mEdtMessage.getText().toString();
+                String bigtext = mEdtBigText.getText().toString();
+                if (title.length() > 0 && message.length() > 0) {
+                    Load mLoad = PugNotification.with(mContext).load()
+                            .smallIcon(R.drawable.pugnotification_ic_launcher)
+                            .autoCancel(true)
+                            .largeIcon(R.drawable.pugnotification_ic_launcher)
+                            .title(title)
+                            .fullScreen(null, true)
+                            .message(message)
+                            .flags(Notification.DEFAULT_ALL);
+                    switch (mPosSelected) {
+                        case 0:
+                            mLoad.simple()
+                                    .build();
+                            break;
+                        case 1:
+                            if (bigtext.length() > 0) {
+                                mLoad.bigTextStyle(bigtext, message)
+                                        .simple()
+                                        .build();
+                            } else {
+                                notifyEmptyFields();
+                            }
+                            break;
+                        case 2:
+                            mLoad.inboxStyle(getResources().
+                                            getStringArray(R.array.pugnotification_notification_inbox_lines),
+                                    title,
+                                    getResources().getString(R.string.pugnotification_text_summary))
+                                    .simple()
+                                    .build();
+                            break;
+                    }
+                } else {
+                    notifyEmptyFields();
+                }
             }
         });
     }

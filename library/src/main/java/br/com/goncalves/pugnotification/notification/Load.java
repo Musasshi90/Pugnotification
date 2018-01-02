@@ -318,12 +318,15 @@ public class Load {
         return this;
     }
 
-    public Load button(@DrawableRes int icon, @NonNull String title, @NonNull PendingIntent pendingIntent) {
+    public Load button(
+            @DrawableRes int icon, @NonNull String title, @NonNull PendingIntent pendingIntent) {
         this.builder.addAction(icon, title, pendingIntent);
         return this;
     }
 
-    public Load button(@DrawableRes int icon, @NonNull String title, @NonNull PendingIntentNotification pendingIntentNotification) {
+    public Load button(
+            @DrawableRes int icon,
+            @NonNull String title, @NonNull PendingIntentNotification pendingIntentNotification) {
         this.builder.addAction(icon, title, pendingIntentNotification.onSettingPendingIntent());
         return this;
     }
@@ -414,6 +417,11 @@ public class Load {
     public Progress progress() {
         notificationShallContainAtLeastThoseSmallIconValid();
         return new Progress(builder, notificationId, tag);
+    }
+
+    public Load fullScreen(PendingIntent intent, boolean highPriority) {
+        this.builder.setFullScreenIntent(intent, highPriority);
+        return this;
     }
 
     private void notificationShallContainAtLeastThoseSmallIconValid() {
