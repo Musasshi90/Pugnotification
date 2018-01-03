@@ -1,6 +1,7 @@
 package br.com.goncalves.pugnotification.notification;
 
 import android.annotation.TargetApi;
+import android.app.NotificationChannel;
 import android.graphics.Bitmap;
 import android.os.Looper;
 import android.support.annotation.DrawableRes;
@@ -26,8 +27,8 @@ public class Custom extends Builder implements OnImageLoadingCompleted {
     private ImageLoader mImageLoader;
 
 
-    public Custom(NotificationCompat.Builder builder, int identifier, String title, String message, Spanned messageSpanned, int smallIcon, String tag) {
-        super(builder, identifier, tag);
+    public Custom(NotificationCompat.Builder builder, NotificationChannel channel, int identifier, String title, String message, Spanned messageSpanned, int smallIcon, String tag) {
+        super(builder, channel, identifier, tag);
         this.mRemoteView = new RemoteViews(PugNotification.mSingleton.mContext.getPackageName(), R.layout.pugnotification_custom);
         this.mTitle = title;
         this.mMessage = message;

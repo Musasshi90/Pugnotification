@@ -1,7 +1,9 @@
 package br.com.goncalves.pugnotification.sample;
 
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -110,11 +112,15 @@ public class SamplePugNotification extends AppCompatActivity implements ImageLoa
                 String message = mEdtMessage.getText().toString();
                 String bigtext = mEdtBigText.getText().toString();
                 if (title.length() > 0 && message.length() > 0) {
+                    Intent intent = new Intent(mContext, IntentActivity.class);
+                    PendingIntent pendingIntent =
+                            PendingIntent.getActivity(mContext, 233, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     Load mLoad = PugNotification.with(mContext).load()
                             .smallIcon(R.drawable.pugnotification_ic_launcher)
                             .autoCancel(true)
                             .largeIcon(R.drawable.pugnotification_ic_launcher)
                             .title(title)
+                            .click(pendingIntent)
                             .message(message)
                             .flags(Notification.DEFAULT_ALL);
 
@@ -184,12 +190,17 @@ public class SamplePugNotification extends AppCompatActivity implements ImageLoa
                 String message = mEdtMessage.getText().toString();
                 String bigtext = mEdtBigText.getText().toString();
                 if (title.length() > 0 && message.length() > 0) {
-                    Load mLoad = PugNotification.with(mContext).load()
+                    Intent intent = new Intent(mContext, IntentActivity.class);
+                    PendingIntent pendingIntent =
+                            PendingIntent.getActivity(mContext, 233, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    Load mLoad = PugNotification.with(mContext)
+                            .load()
                             .smallIcon(R.drawable.pugnotification_ic_launcher)
                             .autoCancel(true)
                             .largeIcon(R.drawable.pugnotification_ic_launcher)
                             .title(title)
-                            .fullScreen(null, true)
+                            .click(pendingIntent)
+                            .fullScreen(pendingIntent, true)
                             .message(message)
                             .flags(Notification.DEFAULT_ALL);
                     switch (mPosSelected) {

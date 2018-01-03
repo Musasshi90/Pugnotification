@@ -1,5 +1,7 @@
 package br.com.goncalves.pugnotification.notification;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +32,7 @@ public class Load {
     private String tag;
     private int notificationId;
     private int smallIcon;
+    private NotificationChannel mChannel;
 
     public Load() {
         builder = new NotificationCompat.Builder(PugNotification.mSingleton.mContext);
@@ -399,29 +402,59 @@ public class Load {
         return this;
     }
 
+    public Load fullScreen(PendingIntent intent, boolean highPriority) {
+        this.builder.setFullScreenIntent(intent, highPriority);
+        return this;
+    }
+
+    public Load channel(String channelId) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            mChannel = new NotificationChannel(
+                    channelId,
+                    "notify channel",
+                    NotificationManager.IMPORTANCE_HIGH);
+            mChannel.setDescription("message");
+            mChannel.enableLights(true);
+            mChannel.enableVibration(true);
+        }
+        return this;
+    }
+
+    public Load channel(NotificationChannel channel) {
+        mChannel = channel;
+        return this;
+    }
+
     public Custom custom() {
         notificationShallContainAtLeastThoseSmallIconValid();
-        return new Custom(builder, notificationId, title, message, messageSpanned, smallIcon, tag);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1 && mChannel == null) {
+            channel(NotificationChannel.DEFAULT_CHANNEL_ID);
+        }
+        return new Custom(builder, mChannel, notificationId, title, message, messageSpanned, smallIcon, tag);
     }
 
     public Simple simple() {
         notificationShallContainAtLeastThoseSmallIconValid();
-        return new Simple(builder, notificationId, tag);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1 && mChannel == null) {
+            channel(NotificationChannel.DEFAULT_CHANNEL_ID);
+        }
+        return new Simple(builder, mChannel, notificationId, tag);
     }
 
     public Wear wear() {
         notificationShallContainAtLeastThoseSmallIconValid();
-        return new Wear(builder, notificationId, tag);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1 && mChannel == null) {
+            channel(NotificationChannel.DEFAULT_CHANNEL_ID);
+        }
+        return new Wear(builder, mChannel, notificationId, tag);
     }
 
     public Progress progress() {
         notificationShallContainAtLeastThoseSmallIconValid();
-        return new Progress(builder, notificationId, tag);
-    }
-
-    public Load fullScreen(PendingIntent intent, boolean highPriority) {
-        this.builder.setFullScreenIntent(intent, highPriority);
-        return this;
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1 && mChannel == null) {
+            channel(NotificationChannel.DEFAULT_CHANNEL_ID);
+        }
+        return new Progress(builder, mChannel, notificationId, tag);
     }
 
     private void notificationShallContainAtLeastThoseSmallIconValid() {

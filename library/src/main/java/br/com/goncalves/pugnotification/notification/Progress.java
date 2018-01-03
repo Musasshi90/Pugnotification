@@ -1,13 +1,14 @@
 package br.com.goncalves.pugnotification.notification;
 
+import android.app.NotificationChannel;
 import android.support.v4.app.NotificationCompat;
 
 /**
  * Created by HalysonLima on 07/09/15.
  */
 public class Progress extends Builder {
-    public Progress(NotificationCompat.Builder builder, int identifier, String tag) {
-        super(builder, identifier, tag);
+    public Progress(NotificationCompat.Builder builder, NotificationChannel channel, int identifier, String tag) {
+        super(builder, channel, identifier, tag);
     }
 
     @Override
