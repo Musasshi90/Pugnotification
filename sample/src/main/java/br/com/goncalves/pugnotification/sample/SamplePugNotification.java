@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -199,8 +200,10 @@ public class SamplePugNotification extends AppCompatActivity implements ImageLoa
                             .autoCancel(true)
                             .largeIcon(R.drawable.pugnotification_ic_launcher)
                             .title(title)
+//                            .ticker(title)
+                            .priority(NotificationCompat.PRIORITY_HIGH)
                             .click(pendingIntent)
-                            .fullScreen(pendingIntent, true)
+//                            .fullScreen(pendingIntent, true)
                             .message(message)
                             .flags(Notification.DEFAULT_ALL);
                     switch (mPosSelected) {

@@ -25,6 +25,7 @@ import br.com.goncalves.pugnotification.pendingintent.DismissPendingIntentBroadC
 
 public class Load {
     private static final String TAG = "Pugnotification.Load";
+    private static final String DEFAULT_CHANNEL_ID = "notify";
     private NotificationCompat.Builder builder;
     private String title;
     private String message;
@@ -411,7 +412,7 @@ public class Load {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
             mChannel = new NotificationChannel(
                     channelId,
-                    "notify channel",
+                    "消息",
                     NotificationManager.IMPORTANCE_HIGH);
             mChannel.setDescription("message");
             mChannel.enableLights(true);
@@ -428,7 +429,7 @@ public class Load {
     public Custom custom() {
         notificationShallContainAtLeastThoseSmallIconValid();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1 && mChannel == null) {
-            channel(NotificationChannel.DEFAULT_CHANNEL_ID);
+            channel(DEFAULT_CHANNEL_ID);
         }
         return new Custom(builder, mChannel, notificationId, title, message, messageSpanned, smallIcon, tag);
     }
@@ -436,7 +437,7 @@ public class Load {
     public Simple simple() {
         notificationShallContainAtLeastThoseSmallIconValid();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1 && mChannel == null) {
-            channel(NotificationChannel.DEFAULT_CHANNEL_ID);
+            channel(DEFAULT_CHANNEL_ID);
         }
         return new Simple(builder, mChannel, notificationId, tag);
     }
@@ -444,7 +445,7 @@ public class Load {
     public Wear wear() {
         notificationShallContainAtLeastThoseSmallIconValid();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1 && mChannel == null) {
-            channel(NotificationChannel.DEFAULT_CHANNEL_ID);
+            channel(DEFAULT_CHANNEL_ID);
         }
         return new Wear(builder, mChannel, notificationId, tag);
     }
@@ -452,7 +453,7 @@ public class Load {
     public Progress progress() {
         notificationShallContainAtLeastThoseSmallIconValid();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1 && mChannel == null) {
-            channel(NotificationChannel.DEFAULT_CHANNEL_ID);
+            channel(DEFAULT_CHANNEL_ID);
         }
         return new Progress(builder, mChannel, notificationId, tag);
     }
