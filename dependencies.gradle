@@ -7,27 +7,42 @@ allprojects {
 ext {
     //Libraries
     annotations = 'com.android.support:support-annotations'
-    supportV4 = 'com.android.support:support-v4'
+    supportCompat = 'com.android.support:support-compat'
+    supportCoreUtils = 'com.android.support:support-core-utils'
+    supportCoreUi = 'com.android.support:support-core-ui'
+    supportMediaCompat = 'com.android.support:support-media-compat'
+    supportFragment = 'com.android.support:support-fragment'
     supportV7 = 'com.android.support:appcompat-v7'
     picasso = 'com.squareup.picasso:picasso'
 
+
     //Version Libraries
-    annotationsVersion = '27.0.2'
-    supportV4Version = '27.0.2'
-    supportV7Version = '27.0.2'
-    picassoVersion = '2.3.4'
+    annotationsVersion = '27.1.1'
+    supportV4Version = '27.1.1'
+    supportV7Version = '27.1.1'
+    picassoVersion = '2.71828'
 
     //Library
     libraryDependencies = [
-            annotationsVersion: "${annotations}:${annotationsVersion}",
-            supportV4         : "${supportV4}:${supportV4Version}",
+            annotationsVersion    : "${annotations}:${annotationsVersion}",
+            supportCompat         : "${supportCompat}:${supportV4Version}",
+            supportCoreUtils      : "${supportCoreUtils}:${supportV4Version}",
+            supportCoreUi         : "${supportCoreUi}:${supportV4Version}",
+            supportMediaCompat    : "${supportMediaCompat}:${supportV4Version}",
+            supportFragment       : "${supportFragment}:${supportV4Version}",
+            supportV7             : "${supportV7}:${supportV7Version}"
+
     ]
 
     //Sample
     sampleDependencies = [
-            annotationsVersion: "${annotations}:${annotationsVersion}",
-            supportV4         : "${supportV4}:${supportV4Version}",
-            supportV7         : "${supportV7}:${supportV7Version}",
-            picasso           : "${picasso}:${picassoVersion}",
+            annotationsVersion    : "${annotations}:${annotationsVersion}",
+            supportCompat         : "${supportCompat}:${supportV4Version}",
+            supportCoreUtils      : "${supportCoreUtils}:${supportV4Version}",
+            supportCoreUi         : "${supportCoreUi}:${supportV4Version}",
+            supportMediaCompat    : "${supportMediaCompat}:${supportV4Version}",
+            supportFragment       : "${supportFragment}:${supportV4Version}",
+            supportV7             : "${supportV7}:${supportV7Version}",
+            picasso               : "${picasso}:${picassoVersion}"
     ]
 }

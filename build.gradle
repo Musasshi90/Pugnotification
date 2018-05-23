@@ -6,22 +6,26 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2'
     }
 }
 
-allprojects {
-    ext {
-        androidBuildToolsVersion = BUILD_VERSION_TOOLS
-        androidMinSdkVersion = Integer.parseInt(MIN_SDK)
-        androidTargetSdkVersion = Integer.parseInt(TARGET_SDK)
-        androidCompileSdkVersion = Integer.parseInt(COMPILE_SDK)
+ext {
+    androidBuildToolsVersion = BUILD_VERSION_TOOLS
+    androidMinSdkVersion = Integer.parseInt(MIN_SDK)
+    androidTargetSdkVersion = Integer.parseInt(TARGET_SDK)
+    androidCompileSdkVersion = Integer.parseInt(COMPILE_SDK)
 
-        androidApplicationId = APPLICATION_ID
-        androidVersionCode = Integer.parseInt(VERSION_CODE)
-        androidVersionName = VERSION_NAME
-    }
+    androidApplicationId = APPLICATION_ID
+    androidVersionCode = Integer.parseInt(VERSION_CODE)
+    androidVersionName = VERSION_NAME
 }
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
 
 allprojects {
     repositories {

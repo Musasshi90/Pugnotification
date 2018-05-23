@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply from: 'maven.gradle'
+apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -30,13 +31,33 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'LICENSE.txt'
     }
+
+    dexcount {
+        format = "list"
+        includeClasses = false
+        includeClassCount = false
+        includeFieldCount = true
+        includeTotalMethodCount = false
+        orderByMethodCount = false
+        verbose = false
+        maxTreeDepth = Integer.MAX_VALUE
+        teamCityIntegration = false
+        teamCitySlug = null
+        runOnEachPackage = true
+        maxMethodCount = 64000
+    }
 }
 
 dependencies {
     //Libraries
     def libraryDependencies = rootProject.ext.libraryDependencies
     implementation libraryDependencies.annotationsVersion
-    implementation libraryDependencies.supportV4
+    implementation libraryDependencies.supportCompat
+    implementation libraryDependencies.supportCoreUtils
+    implementation libraryDependencies.supportCoreUi
+    implementation libraryDependencies.supportMediaCompat
+    implementation libraryDependencies.supportFragment
+    implementation libraryDependencies.supportV7
 }
 
 uploadArchives.dependsOn(assemble)

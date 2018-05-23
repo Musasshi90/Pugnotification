@@ -45,7 +45,7 @@ public class SamplePugNotification extends AppCompatActivity implements ImageLoa
             }
 
             @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
 
             }
 
@@ -245,12 +245,12 @@ public class SamplePugNotification extends AppCompatActivity implements ImageLoa
     @Override
     public void load(String uri, final OnImageLoadingCompleted onCompleted) {
         viewTarget = getViewTarget(onCompleted);
-        Picasso.with(this).load(uri).into(viewTarget);
+        Picasso.get().load(uri).into(viewTarget);
     }
 
     @Override
     public void load(int imageResId, OnImageLoadingCompleted onCompleted) {
         viewTarget = getViewTarget(onCompleted);
-        Picasso.with(this).load(imageResId).into(viewTarget);
+        Picasso.get().load(imageResId).into(viewTarget);
     }
 }

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -30,14 +31,33 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'LICENSE.txt'
     }
+
+    dexcount {
+        format = "list"
+        includeClasses = false
+        includeClassCount = false
+        includeFieldCount = true
+        includeTotalMethodCount = false
+        orderByMethodCount = false
+        verbose = false
+        maxTreeDepth = Integer.MAX_VALUE
+        teamCityIntegration = false
+        teamCitySlug = null
+        runOnEachPackage = true
+        maxMethodCount = 64000
+    }
 }
 
 dependencies {
     //Libraries
+    implementation project(':library')
     def sampleDependencies = rootProject.ext.sampleDependencies
     implementation sampleDependencies.annotationsVersion
-    implementation sampleDependencies.supportV4
+    implementation sampleDependencies.supportCompat
+    implementation sampleDependencies.supportCoreUtils
+    implementation sampleDependencies.supportCoreUi
+    implementation sampleDependencies.supportMediaCompat
+    implementation sampleDependencies.supportFragment
     implementation sampleDependencies.supportV7
     implementation sampleDependencies.picasso
-    implementation project(':library')
 }
